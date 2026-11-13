@@ -9,8 +9,12 @@ demande l'**API 5**. Identifiant : **`note-mj`** — il nomme son dossier, son a
 
 - `src/boot.tsx` : `activate(eraser)`, petit. Ne pose rien chez un joueur. Les fenêtres se chargent
   au premier clic (`import()` → `dist/parts/`).
-- `src/server.ts` (→ `dist/server.mjs`) : la partie serveur. Refuse tout compte qui n'est ni MJ ni
-  admin. Données dans `extension:note-mj` (`eraser.store`), index lus par `eraser.indexes`.
+- `src/model.ts` : la note (titre, texte, citation, couleur, épingle, campagne, accroche `page` ou
+  `index`) et son nettoyage `normalizeNote`, commun à l'affichage et au serveur (aucun import).
+  Ne jamais renommer un champ ni une valeur enregistrés.
+- `src/server.ts` (→ `dist/server.mjs`) : `GET notes`, `PUT notes/<id>`, `DELETE notes/<id>`.
+  Refuse tout compte qui n'est ni MJ ni admin ; chacun ne voit que ses notes (clé
+  `note:<compte>:<id>` dans `extension:note-mj`). Trop long : refusé, jamais coupé en silence.
 - `src/roles.ts` : qui peut tenir des notes, commun à l'affichage et au serveur (aucun import).
 
 ## Règles
